@@ -1,5 +1,8 @@
 # Assesment test
 
+This test is to assess how well the students can write basic python.
+This isn't graded. Please, try not to use AI assistants. You're free to google for documentation, but most problems here don't require any libraries.
+
 ## Instructions
 1. Clone this repository.
 2. Create a folder with your name lowercase (for e.g: my name is Anier, hence the folder's name is `anier`).
@@ -17,10 +20,11 @@ Write a function that takes a 2D array (ie: a matrix) and returns all the elemen
 
 ## Task 2
 
-Write a function that takes a set of numbers and it will return all the possible subsets. For example, for the set `{1, 2, 3}`, the output should be (not necessarily in the same order):
-```
-[{}, {1}, {2}, {1, 2}, {3}, {1, 3}, {2, 3}, {1, 2, 3}]
-```
+A substring is palindrome if it's read the same from left to right as from right to left. For example, `level`, `rotator`, and `civic` are palindrome, while `snake`, `conda` and `python` aren't.
+
+Write a function that takes a string, and it will find its longest palindrome substring.
+
+For example, for the string `preferable`, its longest palindrome substring is `refer`.
 
 
 ## Task 3
