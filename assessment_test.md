@@ -1,4 +1,4 @@
-# Assesment test
+# Assessment test
 
 This test is to assess how well the students can write basic python.
 This isn't graded. Please, try not to use AI assistants. You're free to google for documentation, but most problems here don't require any libraries.
