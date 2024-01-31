@@ -1,6 +1,8 @@
 class Database:
     def __init__(self):
-        self.users = []
+        self.users = {}
+        self.ages_count = {}
+        self.user_length = 0
 
     def query(self, command):
         parts = command.split()
@@ -19,26 +21,33 @@ class Database:
 
 
     def set_user(self, username, age):
-        for user in self.users:
-            if user['username'] == username:
-                user['age'] = age
-                return
-        self.users.append({'username': username, 'age': age})
+        if username in self.users:
+            self.delete_user(username)  
+        if self.ages_count.get(age, None) == None:
+            self.ages_count[age] = set()
+        self.ages_count[age].add(username)
+        self.users[username] = age
+        self.user_length += 1
 
     def get_user(self, username):
-        for user in self.users:
-            if user['username'] == username:
-                return user['age']
-        return -1
+        if self.users.get(username, -1) != -1:
+            return self.users[username]
+        return None
 
     def delete_user(self, username):
-        self.users = [user for user in self.users if user['username'] != username]
+        if self.users.get(username, -1) != -1:
+            age = self.users[username]
+            if self.ages_count.get(age, []):   
+                self.ages_count[age].remove(username)
+            self.user_length -= 1
+            del self.users[username]
+            return True
 
     def count_users(self):
-        return len(self.users)
+        return self.user_length
 
     def get_by_age(self, age):
-        return [user['username'] for user in self.users if user['age'] == age]
+        return self.ages_count[age]
 
 
 db = Database()
@@ -47,7 +56,9 @@ db.query("SET user1 45")
 db.query("SET user2 47")
 db.query("SET user3 45")
 print(db.query("GET user2"))
-print( db.get_by_age(45))
+print(db.query("GET_BY_AGE 45"))
 print(db.query("COUNT"))
 print(db.query("DELETE user2"))
+print(db.query("DELETE user1"))
 print(db.query("COUNT"))
+print(db.query("GET_BY_AGE 45"))
