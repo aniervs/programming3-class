@@ -1,11 +1,13 @@
 def find_duplicates(arr):
     seen = set()
+    dup_set = set()
     dup = []
 
     for num in arr:
         if num in seen:
-            if num not in dup:
+            if num not in dup_set:
                 dup.append(num)
+                dup_set.add(num)
         else:
             seen.add(num)
 
