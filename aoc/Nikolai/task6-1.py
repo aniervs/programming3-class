@@ -6,6 +6,7 @@ def part1(data):
     ans = 1
     j = 0
     for i in range(len(time)):
+        j = 0
         while j < int(time[i]):
             if (int(time[i]) - j) * j > int(records[i]):
 
