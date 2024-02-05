@@ -1,5 +1,4 @@
 
-# Define the path to the file
 file_path = '../TextFiles/day4.txt'
 
 # Function to read the file and calculate points
@@ -10,10 +9,10 @@ def calculate_points(file_path):
     total_points = 0
     for line in lines:
         parts = line.strip().split('|')
-        if len(parts) != 2:
-            continue  # Skip lines that don't have the expected format
+        if len(parts) != 2: # lines that don't have the expected format
+            continue
 
-        # Split the winning numbers and the numbers you have
+        # Split the winning numbers
         winning_numbers = set(map(int, parts[0].split(':')[1].strip().split()))
         numbers_you_have = set(map(int, parts[1].strip().split()))
 
@@ -28,7 +27,6 @@ def calculate_points(file_path):
 
     return total_points
 
-# Calculate the points
 total_points = calculate_points(file_path)
 print(total_points)
 

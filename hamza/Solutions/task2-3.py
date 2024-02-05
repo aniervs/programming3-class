@@ -1,46 +1,48 @@
 
+def sum_part_numbers(schematic):
+    # Split the schematic into lines and then into a 2D list (grid) of characters
+    lines = schematic.strip().split("\n")
+    grid = [list(line) for line in lines]
 
+    # Define the 8 possible movements (horizontal, vertical, and diagonal)
+    moves = [(-1, -1), (-1, 0), (-1, 1), (0, -1), (0, 1), (1, -1), (1, 0), (1, 1)]
 
-def read_file_and_sum_part_numbers(file_path):
-    # Read the file content
-    with open(file_path, 'r') as file:
-        file_content = file.readlines()
-        file_content = [line.strip() for line in file_content]
-
-    symbols = set("*#$+")
-    sum_parts = 0
-
-    # Check if a position is adjacent to a symbol
-    def is_adjacent_to_symbol(x, y, grid):
-        directions = [(-1, -1), (-1, 0), (-1, 1), (0, -1), (0, 1), (1, -1), (1, 0), (1, 1)]
-        for dx, dy in directions:
+    def has_adjacent_symbol(x, y):
+        for dx, dy in moves:
             nx, ny = x + dx, y + dy
-            if 0 <= nx < len(grid) and 0 <= ny < len(grid[0]) and grid[nx][ny] in symbols:
-                return True
+            if 0 <= nx < len(grid) and 0 <= ny < len(grid[0]):
+                if not grid[nx][ny].isdigit() and grid[nx][ny] != '.':
+                    return True
         return False
 
-    for i, row in enumerate(file_content):
-        j = 0
-        while j < len(row):
-            if row[j].isdigit():
-                number = row[j]
-                k = j + 1
-                while k < len(row) and row[k].isdigit():
-                    number += row[k]
-                    k += 1
-                # Check if either the start or the end of the number is adjacent to a symbol
-                if is_adjacent_to_symbol(i, j, file_content) or is_adjacent_to_symbol(i, k-1, file_content):
-                    sum_parts += int(number)
-                j = k
+    sum_parts = 0
+    number_buffer = ""
+    adjacent_to_symbol = False
+
+    for x in range(len(grid)):
+        for y in range(len(grid[0])):
+            if grid[x][y].isdigit():
+                number_buffer += grid[x][y]
+                adjacent_to_symbol = adjacent_to_symbol or has_adjacent_symbol(x, y)
             else:
-                j += 1
+                if number_buffer and adjacent_to_symbol:
+                    sum_parts += int(number_buffer)
+                number_buffer = ""
+                adjacent_to_symbol = False
+        if number_buffer and adjacent_to_symbol:
+            sum_parts += int(number_buffer)
+        number_buffer = ""
+        adjacent_to_symbol = False
 
     return sum_parts
 
-# Assuming the file 'hey.txt' is located in the 'TextFiles' directory
-file_path = '../TextFiles/day3.txt'  # Update this path if necessary
+def read_schematic_from_file(file_path):
+    with open(file_path, 'r') as file:
+        return file.read()
 
-# Calculate the sum of part numbers
-sum_parts = read_file_and_sum_part_numbers(file_path)
+# Assuming 'Exercise.txt' is the file name
+file_path = '../TextFiles/day3.txt'
+schematic = read_schematic_from_file(file_path)
+sum_of_part_numbers = sum_part_numbers(schematic)
+print(sum_of_part_numbers)
 
-print(f"The sum of part numbers in the file is: {sum_parts}")

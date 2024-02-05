@@ -17,7 +17,6 @@ def extrapolate_next_value(history):
     # The next value is the last element of the first (original) sequence
     return sequences[0][-1]
 
-# Assuming the histories are stored in a file named 'Exercise9.txt'
 def process_file(filename):
     # Open the file and read the histories
     with open(filename, 'r') as file:
@@ -28,8 +27,7 @@ def process_file(filename):
     next_values_sum = sum(extrapolate_next_value(history) for history in histories)
     return next_values_sum
 
-# Example usage
-filename = '../TextFiles/day9.txt'  # Make sure this matches the name of your file
+filename = '../TextFiles/day9.txt'
 total_sum = process_file(filename)
 print(total_sum)
 
