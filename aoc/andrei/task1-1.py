@@ -4,7 +4,7 @@ with open(file_path, 'r') as file:
 arr = text.split('\n')
 sum = 0
 
-def check_rev(i,j):
+def check_rev(i,j): 
     if arr[i][j].isdigit():
         return int(arr[i][j])
 
