@@ -1,63 +1,42 @@
-# get day1.txt
-# PART 1
-txt = None
+import re
 
-with open('./txt/day1.txt', 'r') as file:
-    
-    txt = file.read()
-    
-    file.close()
-        
-def get_first_num(line:str):
-    for letter in line:
-        if letter.isdigit():
-            return letter
-        
-def get_last_num(line:str):   
-    for letter in line[::-1]:
-        if letter.isdigit():
-            return letter
-     
-res = 0
-lines = txt.split('\n')
+def sum_game_ids():
+    gid_sum = 0
+    max_r = 12
+    max_g = 13
+    max_b = 14
+    with open("./txt/games.txt", "r") as file:
+        gid_pattern = "(\\d+(?=:))"
+        sets_pattern = "(?<=:)(.*)"
+        r_pattern = "(\\d+)(?=\\sred)"
+        g_pattern = "(\\d+)(?=\\sgreen)"
+        b_pattern = "(\\d+)(?=\\sblue)"
 
-for line in lines:  
-    first = get_first_num(line)
-    last = get_last_num(line)
-    if first == None or last == None:
-        continue
-    
-    line_num = str(first) + str(last)
+        for line in file:
+            is_valid = True
+            gid = int(re.search(gid_pattern, line).group(0))
+            sets = re.search(sets_pattern, line).group(0)
+            sets = re.split(";", sets)
+            for s in sets:
+                r_count = re.search(r_pattern, s)
+                if r_count:
+                    r_count = int(r_count.group(0))
+                    if r_count > max_r: is_valid = False
 
-    res += int(line_num)
-    
-print(res)
-    
-#PART 2
+                g_count = re.search(g_pattern, s)
+                
+                if g_count:
+                    g_count = int(g_count.group(0))
+                    if g_count > max_g: is_valid = False
 
-values = {
-        "one": "1", 
-        "two": "2", 
-        "three": "3", 
-        "four": "4", 
-        "five": "5", 
-        "six": "6", 
-        "seven": "7", 
-        "eight": "8", 
-        "nine": "9"
-        }
-pairs = []
-
-for line in lines:
-    digits = []
-
-    for i, c in enumerate(line):
-        if line[i].isdigit():
-            digits.append(line[i])
-        else:
-            for k in values.keys():
-                if line[i:].startswith(k):
-                    digits.append(values[k])
+                b_count = re.search(b_pattern, s)
+                if b_count:
+                    b_count = int(b_count.group(0))
+                    if b_count > max_b: is_valid = False
                     
-    pairs.append(int(f"{digits[0]}{digits[-1]}"))
-print(sum(pairs))
+            if is_valid: gid_sum += gid
+
+    print(gid_sum)
+
+
+sum_game_ids()
