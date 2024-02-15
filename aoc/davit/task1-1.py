@@ -1,10 +1,39 @@
+# get day1.txt
+# PART 1
 txt = None
 
-with open('./txt/day1.txt', 'r') as file:
+with open('txt/day1.txt', 'r') as file:
     
     txt = file.read()
     
     file.close()
+        
+def get_first_num(line:str):
+    for letter in line:
+        if letter.isdigit():
+            return letter
+        
+def get_last_num(line:str):   
+    for letter in line[::-1]:
+        if letter.isdigit():
+            return letter
+     
+res = 0
+lines = txt.split('\n')
+
+for line in lines:  
+    first = get_first_num(line)
+    last = get_last_num(line)
+    if first == None or last == None:
+        continue
+    
+    line_num = str(first) + str(last)
+
+    res += int(line_num)
+    
+print(res)
+    
+#PART 2
 
 values = {
         "one": "1", 
@@ -17,11 +46,7 @@ values = {
         "eight": "8", 
         "nine": "9"
         }
-
 pairs = []
-
-res = 0
-lines = txt.split('\n')
 
 for line in lines:
     digits = []

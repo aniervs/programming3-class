@@ -1,4 +1,4 @@
-with open("./txt/gear.txt") as f:
+with open("txt/gear.txt") as f:
     l = [line.strip() for line in f]
 
 r = 0
