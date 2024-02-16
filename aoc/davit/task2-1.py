@@ -5,7 +5,9 @@ def sum_game_ids():
     max_r = 12
     max_g = 13
     max_b = 14
-    with open("txt/games.txt", "r") as file:
+
+    with open("./txt/games.txt", "r") as file:
+
         gid_pattern = "(\\d+(?=:))"
         sets_pattern = "(?<=:)(.*)"
         r_pattern = "(\\d+)(?=\\sred)"
