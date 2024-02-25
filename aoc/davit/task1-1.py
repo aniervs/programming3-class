@@ -3,6 +3,7 @@
 txt = None
 
 with open('./txt/day1.txt', 'r') as file:
+
     
     txt = file.read()
     

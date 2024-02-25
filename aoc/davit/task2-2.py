@@ -2,7 +2,9 @@ import re
 
 def sum_powers():
     power_sum = 0
+
     with open("./txt/games.txt", "r") as file:
+
         sets_pattern = "(?<=:)(.*)"
         r_pattern = "(\\d+)(?=\\sred)"
         g_pattern = "(\\d+)(?=\\sgreen)"

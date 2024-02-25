@@ -1,4 +1,5 @@
 with open('./txt/day6.txt', 'r') as f:
+
     c = f.read().splitlines()
 
 t_vals = [int(i) for i in c[0].split(': ')[1].split(' ') if i]

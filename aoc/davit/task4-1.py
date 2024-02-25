@@ -1,4 +1,3 @@
-
 with open('./txt/day4.txt', 'r') as f:
     l = f.read().splitlines()
 
